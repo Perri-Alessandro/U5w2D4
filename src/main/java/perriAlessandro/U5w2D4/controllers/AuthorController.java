@@ -63,7 +63,7 @@ public class AuthorController {
     }
 
     @PostMapping("/upload")
-    public String uploadAvatar(@RequestParam("imageUrl") MultipartFile image) throws IOException {
+    public String uploadAvatar(@RequestParam("image") MultipartFile image) throws IOException {
         // "avatar" deve corrispondere ESATTAMENTE alla chiave del Multipart dove sarà contenuto il file
         // altrimenti il file non verrà trovato
         return this.authorService.uploadImage(image);

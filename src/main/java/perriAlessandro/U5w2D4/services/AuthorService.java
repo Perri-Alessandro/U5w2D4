@@ -37,12 +37,9 @@ public class AuthorService {
     }
 
     public Author saveAuthor(NewAuthorDTO body) {
-        this.authDAO.findByMail(body.mail()).ifPresent(
-                // 2. Se lo è triggero un errore
-                user -> {
-                    throw new BadRequestException("L'email " + user.getMail() + " è già in uso!");
-                }
-        );
+        if (authDAO.findByMail(body.mail()).isPresent()) {
+            throw new BadRequestException("L'email " + body.mail() + " è già in uso!");
+        }
         Author newUser = new Author(body.nome(), body.cognome(), body.mail(), body.dataNascita(),
                 "https://ui-avatars.com/api/?name=" + body.nome() + "+" + body.cognome());
 
