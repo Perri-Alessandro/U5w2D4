@@ -30,6 +30,14 @@ public class Author {
     @OneToMany(mappedBy = "author")
     private List<BlogPost> blogPosts;
 
+    public Author(String nome, String cognome, String mail, LocalDate dataNascita, String imageUrl) {
+        this.nome = nome;
+        this.cognome = cognome;
+        this.mail = mail;
+        this.dataNascita = dataNascita;
+        this.imageUrl = imageUrl;
+    }
+
     public void setImageUrl(String imageUrl) {
         if (nome != null && cognome != null) {
             this.imageUrl = String.format("https://ui-avatars.com/api/?name=%s+%s", nome, cognome);

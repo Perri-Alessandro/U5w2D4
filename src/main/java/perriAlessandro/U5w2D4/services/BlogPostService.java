@@ -58,7 +58,6 @@ public class BlogPostService {
         BlogPost found = this.findById(id);
         found.setAuthor(null);
         this.blogDAO.save(found); // Salva le modifiche al post senza l'autore
-        // Ora puoi eliminare il post
         this.blogDAO.delete(found);
     }
 }
