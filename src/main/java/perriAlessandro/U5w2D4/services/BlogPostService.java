@@ -6,11 +6,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import perriAlessandro.U5w2D3.entities.Author;
-import perriAlessandro.U5w2D3.entities.BlogPost;
-import perriAlessandro.U5w2D3.exceptions.NotFoundException;
-import perriAlessandro.U5w2D3.payloads.BlogPostPayload;
-import perriAlessandro.U5w2D3.repositories.BlogPostDAO;
+import perriAlessandro.U5w2D4.entities.Author;
+import perriAlessandro.U5w2D4.entities.BlogPost;
+import perriAlessandro.U5w2D4.exceptions.NotFoundException;
+import perriAlessandro.U5w2D4.payloads.BlogPostPayload;
+import perriAlessandro.U5w2D4.repositories.BlogPostDAO;
 
 import java.util.UUID;
 
@@ -51,11 +51,14 @@ public class BlogPostService {
         found.setTitolo(updatedBlog.getTitolo());
         found.setCover(updatedBlog.getCover());
         found.setMinutiLettura(updatedBlog.getMinutiLettura());
-        return this.blogDAO.save(found);
+        return blogDAO.save(found);
     }
 
     public void findByIdAndDelete(UUID id) {
         BlogPost found = this.findById(id);
+        found.setAuthor(null);
+        this.blogDAO.save(found); // Salva le modifiche al post senza l'autore
+        // Ora puoi eliminare il post
         this.blogDAO.delete(found);
     }
 }
