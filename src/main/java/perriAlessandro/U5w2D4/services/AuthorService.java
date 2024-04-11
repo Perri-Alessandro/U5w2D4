@@ -7,13 +7,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import perriAlessandro.U5w2D4.entities.Author;
-import perriAlessandro.U5w2D4.entities.BlogPost;
 import perriAlessandro.U5w2D4.exceptions.BadRequestException;
 import perriAlessandro.U5w2D4.exceptions.NotFoundException;
 import perriAlessandro.U5w2D4.repositories.AuthorsDAO;
 import perriAlessandro.U5w2D4.repositories.BlogPostDAO;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -56,21 +54,8 @@ public class AuthorService {
     }
 
     public void findByIdAndDelete(UUID id) {
-        Author author = authDAO.findById(id)
-                .orElseThrow(() -> new NotFoundException("Author not found with id: " + id));
-
-        List<BlogPost> blogPosts = author.getBlogPosts();
-
-        if (!blogPosts.isEmpty()) {
-            // Elimina tutti i post del blog associati all'autore
-            blogPosts.forEach(blogPost -> {
-                blogPost.setAuthor(null); // Rimuovi l'autore dal post del blog
-                blogPostDAO.save(blogPost); // Salva il post del blog aggiornato
-            });
-        }
-
-        // Una volta eliminati tutti i post del blog associati, elimina l'autore
-        authDAO.delete(author);
+        Author found = this.findById(id);
+        authDAO.delete(found);
     }
 
 }
