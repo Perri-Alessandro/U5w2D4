@@ -2,6 +2,7 @@ package perriAlessandro.U5w2D4.payloads;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
@@ -15,7 +16,6 @@ public record NewAuthorDTO(@NotEmpty(message = "Il nome proprio è obbligatorio"
                            @NotEmpty(message = "L'email è obbligatoria")
                            @Email(message = "L'email inserita non è valida")
                            String mail,
-                           @NotEmpty(message = "La data di nascita è obbligatoria")
-                           @Size(min = 4, message = "La data deve avere come minimo 4 caratteri")
+                           @NotNull(message = "La data di nascita è obbligatoria")
                            LocalDate dataNascita) {
 }

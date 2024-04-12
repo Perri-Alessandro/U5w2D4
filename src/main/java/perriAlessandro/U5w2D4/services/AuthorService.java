@@ -72,4 +72,7 @@ public class AuthorService {
         return url;
     }
 
+//    public String imageInDb(Author id, String image){
+//        String url =
+//    }
 }

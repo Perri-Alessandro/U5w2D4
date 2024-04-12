@@ -35,11 +35,9 @@ public class AuthorController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED) // Status Code 201
     public NewAuthorRespDTO saveAuthor(@RequestBody @Validated NewAuthorDTO body, BindingResult validation) {
-        // BindingResult validation ci serve per valutare il risultato di questa validazione
-        if (validation.hasErrors()) { // Se ci sono stati errori di validazione dovrei triggerare un 400 Bad Request
-            throw new BadRequestException(validation.getAllErrors()); // Inviamo la lista degli errori all'Error Handler opportuno
+        if (validation.hasErrors()) {
+            throw new BadRequestException(validation.getAllErrors());
         }
-        // Altrimenti se non ci sono stati errori posso salvare tranquillamente lo user
         return new NewAuthorRespDTO(this.authorService.saveAuthor(body).getId());
     }
 
@@ -63,9 +61,7 @@ public class AuthorController {
     }
 
     @PostMapping("/upload")
-    public String uploadAvatar(@RequestParam("image") MultipartFile image) throws IOException {
-        // "avatar" deve corrispondere ESATTAMENTE alla chiave del Multipart dove sarà contenuto il file
-        // altrimenti il file non verrà trovato
+    public String uploadAvatar(@RequestParam("imageUrl") MultipartFile image) throws IOException { //
         return this.authorService.uploadImage(image);
 
     }
